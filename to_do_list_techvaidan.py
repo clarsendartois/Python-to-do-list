@@ -5,7 +5,7 @@ from tkinter import *
 root = Tk()
 root.title("TechVidan To-Do List")
 root.geometry("300x400")
-# root.resizable(0, 0)
+root.resizable(0, 0)
 root.config(bg="PaleVioletRed")
 
 # Heading Label
@@ -15,12 +15,13 @@ Label(root, text="Tech Vidvan To-Do List", bg="PaleVioletRed",
 # Listbox with all the tasks with a Scrollbar
 tasks = Listbox(root, selectbackground="Gold", bg="Silver",
                 font=("Helvetica", 12), height=12, width=25)
+tasks.place(x=35, y=50)
 
-scroller = Scrollbar(root, orient=VERTICAL, command=tasks.yview)
+scroller = Scrollbar(root, orient=VERTICAL)
 scroller.place(x=260, y=50, height=232)
 
 tasks.config(yscrollcommand=scroller.set)
-tasks.place(x=35, y=50)
+scroller.config(command=tasks.yview)
 
 # Adding items to the Listbox
 with open("tasks.txt", "rt") as tasks_list:
@@ -31,6 +32,8 @@ with open("tasks.txt", "rt") as tasks_list:
 # Creating the Entry widget where the user can enter a new item
 new_item_entry = Entry(root, width=37)
 new_item_entry.place(x=35, y=310)
+new_item_entry.focus()
+
 
 # Adding and Deleting items functions
 
