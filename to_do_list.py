@@ -6,7 +6,7 @@ ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
 font_style_text = ("Bookman Old Style", 40, "bold")
-font_style_entry = ("Bookman Old Style", 20)
+font_style_entry = ("Bookman Old Style", 40)
 
 topbar_bg_color = "#32405b"
 
@@ -51,12 +51,12 @@ class ToDoList:
 
     def create_entry_task(self):
         frame = ctk.CTkFrame(self.window, width=400,
-                             height=50, bg_color="white", fg_color="white", border_width=0)
+                             height=52, border_width=0)
         frame.place(x=0, y=180)
 
         task_entry = ctk.CTkEntry(
-            frame, width=18, font=font_style_entry, border_width=0)
-        task_entry.place(x=10, y=7)
+            frame, width=300, font=font_style_entry, fg_color="white")
+        task_entry.place(x=0, y=0)
         task_entry.focus
 
 
