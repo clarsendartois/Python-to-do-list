@@ -7,8 +7,10 @@ ctk.set_default_color_theme("blue")
 
 font_style_text = ("Bookman Old Style", 40, "bold")
 font_style_entry = ("Bookman Old Style", 40)
+font_style_add_button = ("Bookman Old Style", 35, "bold")
 
 topbar_bg_color = "#32405b"
+listbox_fg_color = "#32405b"
 
 text_heading = "ALL TASK"
 
@@ -23,6 +25,8 @@ class ToDoList:
 
         self.heading = self.create_heading()
         self.entry_task = self.create_entry_task()
+        self.buttons = self.create_buttons()
+        self.listbox = self.create_listbox()
 
     def run(self):
         self.window.mainloop()
@@ -50,14 +54,29 @@ class ToDoList:
         heading_text.place(x=100, y=15)
 
     def create_entry_task(self):
-        frame = ctk.CTkFrame(self.window, width=400,
-                             height=52, border_width=0)
-        frame.place(x=0, y=180)
+        global frame_entry
+        frame_entry = ctk.CTkFrame(self.window, width=400,
+                                   height=52, border_width=0)
+        frame_entry.place(x=0, y=180)
 
         task_entry = ctk.CTkEntry(
-            frame, width=300, font=font_style_entry, fg_color="white")
+            frame_entry, width=300, font=font_style_entry, text_color="black", fg_color="white")
         task_entry.place(x=0, y=0)
         task_entry.focus
+
+    def create_buttons(self):
+        add_btn = ctk.CTkButton(
+            frame_entry, text="ADD", font=font_style_add_button, width=100, height=50, border_width=2)
+        add_btn.place(x=300, y=0)
+
+    def create_listbox(self):
+        frame_listbox = ctk.CTkFrame(
+            self.window, border_width=3, width=700, height=320, fg_color=listbox_fg_color)
+        frame_listbox.pack(pady=(160, 0))
+
+        # listbox = tk.Listbox(frame_listbox, font=("arial", 12),
+        #                      width=40, height=16, bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
+        # listbox.pack() #(side=LEFT, fill=BOTH, padx=2)
 
 
 if __name__ == "__main__":
