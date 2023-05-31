@@ -1,4 +1,4 @@
-import tkinter as tk
+# import tkinter as tk
 import customtkinter as ctk
 from PIL import Image
 
@@ -74,9 +74,21 @@ class ToDoList:
             self.window, border_width=3, width=700, height=320, fg_color=listbox_fg_color)
         frame_listbox.pack(pady=(160, 0))
 
-        # listbox = tk.Listbox(frame_listbox, font=("arial", 12),
-        #                      width=40, height=16, bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
-        # listbox.pack() #(side=LEFT, fill=BOTH, padx=2)
+        # listbox = tk.Listbox(frame_listbox, width=40, height=16, bg="#32405b")
+        # listbox.pack(side="left", fill="both", padx=2)
+        # # listbox.pack() #(side=LEFT, fill=BOTH, padx=2)
+
+        # textbox = ctk.CTkTextbox(frame_listbox, width=400, corner_radius=0)
+        # textbox.pack(side="left", fill="both", padx=2)
+        # textbox.insert("0.0", "Some example text!\n" * 50)
+
+        # # insert at line 0 character 0
+        # textbox.insert("0.0", "new text to insert")
+        # # get text from line 0 character 0 till the end
+        # text = textbox.get("0.0", "end")
+        # textbox.delete("0.0", "end")  # delete all text
+        # # configure textbox to be read-only
+        # textbox.configure(state="disabled")
 
 
 if __name__ == "__main__":
