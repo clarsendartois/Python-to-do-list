@@ -1,4 +1,4 @@
-# import tkinter as tk
+import tkinter as tk
 import customtkinter as ctk
 from PIL import Image
 
@@ -27,9 +27,6 @@ class ToDoList:
         self.entry_task = self.create_entry_task()
         self.buttons = self.create_buttons()
         self.listbox = self.create_listbox()
-
-    def run(self):
-        self.window.mainloop()
 
     def create_heading(self):
         topbar_img = ctk.CTkImage(light_image=Image.open(
@@ -69,26 +66,29 @@ class ToDoList:
             frame_entry, text="ADD", font=font_style_add_button, width=100, height=50, border_width=2)
         add_btn.place(x=300, y=0)
 
+        del_img = ctk.CTkImage(light_image=Image.open(
+            "./img/delete.png"), size=(50, 50))
+        del_btn = ctk.CTkButton(self.window, text="", image=del_img,
+                                border_width=0, width=1, bg_color="#242424", fg_color="#242424")
+        del_btn.place(relx=0.5, rely=0.5, x=-30, y=250)
+
     def create_listbox(self):
-        frame_listbox = ctk.CTkFrame(
-            self.window, border_width=3, width=700, height=320, fg_color=listbox_fg_color)
-        frame_listbox.pack(pady=(160, 0))
+        frame_listbox = tk.Frame(
+            self.window, bd=3, width=700, height=320, bg="#32405b")
+        frame_listbox.place(x=2, y=480)
 
-        # listbox = tk.Listbox(frame_listbox, width=40, height=16, bg="#32405b")
-        # listbox.pack(side="left", fill="both", padx=2)
-        # # listbox.pack() #(side=LEFT, fill=BOTH, padx=2)
+        listbox = tk.Listbox(frame_listbox, font=("arial", 12),
+                             width=83, height=33, bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
+        listbox.pack(side="left", fill="both", padx=2)
 
-        # textbox = ctk.CTkTextbox(frame_listbox, width=400, corner_radius=0)
-        # textbox.pack(side="left", fill="both", padx=2)
-        # textbox.insert("0.0", "Some example text!\n" * 50)
+        scrollbar = tk.Scrollbar(frame_listbox)
+        scrollbar.pack(side="right", fill="both")
 
-        # # insert at line 0 character 0
-        # textbox.insert("0.0", "new text to insert")
-        # # get text from line 0 character 0 till the end
-        # text = textbox.get("0.0", "end")
-        # textbox.delete("0.0", "end")  # delete all text
-        # # configure textbox to be read-only
-        # textbox.configure(state="disabled")
+        listbox.config(yscrollcommand=scrollbar.set)
+        scrollbar.config(command=listbox.yview)
+
+    def run(self):
+        self.window.mainloop()
 
 
 if __name__ == "__main__":
