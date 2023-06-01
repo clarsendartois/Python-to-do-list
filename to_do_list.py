@@ -8,11 +8,14 @@ ctk.set_default_color_theme("blue")
 font_style_text = ("Bookman Old Style", 40, "bold")
 font_style_entry = ("Bookman Old Style", 40)
 font_style_add_button = ("Bookman Old Style", 35, "bold")
+font_style_listbox = ("Bookman Old Style", 35)
 
 topbar_bg_color = "#32405b"
 listbox_fg_color = "#32405b"
 
 text_heading = "ALL TASK"
+
+task_list = []
 
 
 class ToDoList:
@@ -27,6 +30,7 @@ class ToDoList:
         self.entry_task = self.create_entry_task()
         self.buttons = self.create_buttons()
         self.listbox = self.create_listbox()
+        self.open_taks = self.open_taks_file()
 
     def create_heading(self):
         topbar_img = ctk.CTkImage(light_image=Image.open(
@@ -73,12 +77,13 @@ class ToDoList:
         del_btn.place(relx=0.5, rely=0.5, x=-30, y=250)
 
     def create_listbox(self):
+        global listbox
         frame_listbox = tk.Frame(
             self.window, bd=3, width=700, height=320, bg="#32405b")
-        frame_listbox.place(x=2, y=480)
+        frame_listbox.place(x=0, y=480)
 
-        listbox = tk.Listbox(frame_listbox, font=("arial", 12),
-                             width=83, height=33, bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
+        listbox = tk.Listbox(frame_listbox, font=font_style_listbox, width=26, height=11,
+                             bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
         listbox.pack(side="left", fill="both", padx=2)
 
         scrollbar = tk.Scrollbar(frame_listbox)
@@ -86,6 +91,19 @@ class ToDoList:
 
         listbox.config(yscrollcommand=scrollbar.set)
         scrollbar.config(command=listbox.yview)
+
+    def open_taks_file(self):
+        try:
+            with open("tasklist2.txt", "r") as taskfile:
+                tasks = taskfile.readlines()
+
+            for task in tasks:
+                if task != "\n":
+                    task_list.append(task)
+                    listbox.insert("end", task)
+        except:
+            file = open("tasklist2.txt", "w")
+            file.close()
 
     def run(self):
         self.window.mainloop()
