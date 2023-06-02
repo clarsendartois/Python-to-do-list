@@ -53,7 +53,7 @@ def delete_item(listbox: Listbox):
     with open("tasks.txt", "rt") as tasks_list_file:
         lines = tasks_list_file.readlines()
 
-        tasks_list_file.truncate()
+        # tasks_list_file.truncate()
 
         for line in lines:
             if listbox.get(ACTIVE) == line[:-2]:
