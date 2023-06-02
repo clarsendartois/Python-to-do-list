@@ -55,7 +55,7 @@ class ToDoList:
         heading_text.place(x=100, y=15)
 
     def create_entry_task(self):
-        global frame_entry
+        global frame_entry, task_entry
         frame_entry = ctk.CTkFrame(self.window, width=400,
                                    height=52, border_width=0)
         frame_entry.place(x=0, y=180)
@@ -67,13 +67,13 @@ class ToDoList:
 
     def create_buttons(self):
         add_btn = ctk.CTkButton(
-            frame_entry, text="ADD", font=font_style_add_button, width=100, height=50, border_width=2)
+            frame_entry, text="ADD", font=font_style_add_button, width=100, height=50, border_width=2, command=self.add_task)
         add_btn.place(x=300, y=0)
 
         del_img = ctk.CTkImage(light_image=Image.open(
             "./img/delete.png"), size=(50, 50))
         del_btn = ctk.CTkButton(self.window, text="", image=del_img,
-                                border_width=0, width=1, bg_color="#242424", fg_color="#242424")
+                                border_width=0, width=1, bg_color="#242424", fg_color="#242424", command=self.delete_task)
         del_btn.place(relx=0.5, rely=0.5, x=-30, y=250)
 
     def create_listbox(self):
@@ -98,12 +98,42 @@ class ToDoList:
                 tasks = taskfile.readlines()
 
             for task in tasks:
-                if task != "\n":
+                if task != "":
                     task_list.append(task)
                     listbox.insert("end", task)
         except:
             file = open("tasklist2.txt", "w")
             file.close()
+
+    def add_task(self):
+        task = task_entry.get()
+        task_entry.delete(0, "end")
+
+        if task:
+            with open("tasklist2.txt", "a") as taskfile:
+                taskfile.write(f"\n{task}")
+                task_list.append(task)
+                listbox.insert("end", task)
+
+    def delete_task(self):
+        listbox.delete("active")
+        with open("tasklist2.txt", "rt") as taskfile:
+            lines = taskfile.readlines()
+            taskfile.truncate()
+            for line in lines:
+                if listbox.get("active") == line[:-2]:
+                    lines.remove(line)
+                    taskfile.write(line)
+
+                taskfile.close()
+    # def delete_task(self):
+    #     task = str(listbox.get("anchor"))
+    #     if task is task_list:
+    #         task_list.remove(task)
+    #         with open("tasklist2.txt", "w") as taskfile:
+    #             for task in task_list:
+    #                 taskfile.write(task + "/n")
+    #         listbox.delete("anchor")
 
     def run(self):
         self.window.mainloop()
