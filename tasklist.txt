@@ -1,12 +1,3 @@
-Html
-Java
-dkl
-Html
-Css
-JavaScript
-C#
-C++
-Java
 Reading
 Meditation
 Laundry
