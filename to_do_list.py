@@ -10,8 +10,10 @@ font_style_entry = ("Bookman Old Style", 40)
 font_style_add_button = ("Bookman Old Style", 35, "bold")
 font_style_listbox = ("Bookman Old Style", 35)
 
+standard_bg_color = "#242424"
 topbar_bg_color = "#32405b"
 listbox_fg_color = "#32405b"
+selectbackground_color = "#5a95ff"
 
 text_heading = "ALL TASK"
 
@@ -73,17 +75,17 @@ class ToDoList:
         del_img = ctk.CTkImage(light_image=Image.open(
             "./img/delete.png"), size=(50, 50))
         del_btn = ctk.CTkButton(self.window, text="", image=del_img,
-                                border_width=0, width=1, bg_color="#242424", fg_color="#242424", command=self.delete_task)
+                                border_width=0, width=1, bg_color=standard_bg_color, fg_color=standard_bg_color, command=self.delete_task)
         del_btn.place(relx=0.5, rely=0.5, x=-30, y=250)
 
     def create_listbox(self):
         global listbox
         frame_listbox = tk.Frame(
-            self.window, bd=3, width=700, height=320, bg="#32405b")
+            self.window, bd=3, width=700, height=320, bg=listbox_fg_color)
         frame_listbox.place(x=0, y=480)
 
         listbox = tk.Listbox(frame_listbox, font=font_style_listbox, width=26, height=11,
-                             bg="#32405b", fg="white", cursor="hand2", selectbackground="#5a95ff")
+                             bg=listbox_fg_color, fg="white", cursor="hand2", selectbackground=selectbackground_color)
         listbox.pack(side="left", fill="both", padx=2)
 
         scrollbar = tk.Scrollbar(frame_listbox)
@@ -94,7 +96,7 @@ class ToDoList:
 
     def open_taks_file(self):
         try:
-            with open("tasklist2.txt", "r") as taskfile:
+            with open("tasklist.txt", "r") as taskfile:
                 tasks = taskfile.readlines()
 
             for task in tasks:
@@ -102,7 +104,7 @@ class ToDoList:
                     task_list.append(task)
                     listbox.insert("end", task)
         except:
-            file = open("tasklist2.txt", "w")
+            file = open("tasklist.txt", "w")
             file.close()
 
     def add_task(self):
@@ -110,30 +112,21 @@ class ToDoList:
         task_entry.delete(0, "end")
 
         if task:
-            with open("tasklist2.txt", "a") as taskfile:
+            with open("tasklist.txt", "a") as taskfile:
                 taskfile.write(f"\n{task}")
                 task_list.append(task)
                 listbox.insert("end", task)
 
     def delete_task(self):
         listbox.delete("active")
-        with open("tasklist2.txt", "rt") as taskfile:
+        with open("tasklist.txt", "rt") as taskfile:
             lines = taskfile.readlines()
-            taskfile.truncate()
             for line in lines:
                 if listbox.get("active") == line[:-2]:
                     lines.remove(line)
                     taskfile.write(line)
 
                 taskfile.close()
-    # def delete_task(self):
-    #     task = str(listbox.get("anchor"))
-    #     if task is task_list:
-    #         task_list.remove(task)
-    #         with open("tasklist2.txt", "w") as taskfile:
-    #             for task in task_list:
-    #                 taskfile.write(task + "/n")
-    #         listbox.delete("anchor")
 
     def run(self):
         self.window.mainloop()
