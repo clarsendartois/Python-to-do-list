@@ -25,7 +25,7 @@ class ToDoList:
         self.window = ctk.CTk()
         self.window.geometry("400x650+0+0")
         self.window.resizable(0, 0)
-        self.window.iconbitmap("./img/task.ico")
+        self.window.iconbitmap("./img/clarsen_icon.ico")
         self.window.title("CLARSEN: To-Do List")
 
         self.heading = self.create_heading()
